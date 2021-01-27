@@ -5,20 +5,20 @@
 ########################################
 
 #Set do diretório das bases de dados
-setwd("C:\\Users\\HP\\Desktop\\DrivenData\\predict_h1n1_flu")
+setwd("C:\\Users\\HP\\Documents\\GitHub\\rstudio_preditct_h1n1_flu")
 getwd()
 
 options(scipen = 999)
 
 #Import csv data
 
-#Importa variáveis explicativas
+#Importa variáveis explicativas (BASE DE TREINO)
 training_features <- read.csv(file = 'training_set_features.csv')
 dim(training_features)
 #View(training_features)
 str(training_features)
 
-#Importa variáveis resposta
+#Importa variáveis resposta (h1n1 e seasonal)
 training_labels <- read.csv(file = 'training_set_labels.csv')
 dim(training_labels)
 #View(training_labels)
@@ -37,6 +37,9 @@ View(training_features_2)
 ########################################
 ########################################
 
+#Avaliar analiticamente concentração de dados faltantes
+sapply(training_features_2, function(x) sum(is.na(x)))
+
 #Exploratória
 summary(training_features_2) #resumo geral da base
 
@@ -54,95 +57,95 @@ summary(training_features_2) #resumo geral da base
 ########################################
 ########################################
 
-#h1n1_concern
+#h1n1_concern -> possui 92 valores faltantes
 #Considerarei os valores missing como 0 (Not at all concerned)
 training_features_2[["h1n1_concern"]][is.na(training_features_2[["h1n1_concern"]])] <- 0  
 
-#h1n1_knowledge
+#h1n1_knowledge -> possui 116 valores faltantes
 #Considerarei os valores missing como 0 (No knowledge)
 training_features_2[["h1n1_knowledge"]][is.na(training_features_2[["h1n1_knowledge"]])] <- 0  
 
-#behavioral_antiviral_meds
+#behavioral_antiviral_meds -> possui 71 valores faltantes
 #Considerarei os valores missing como 0 (Não tomou antiviral)
 training_features_2[["behavioral_antiviral_meds"]][is.na(training_features_2[["behavioral_antiviral_meds"]])] <- 0  
 
-#behavioral_avoidance
+#behavioral_avoidance -> possui 208 valores faltantes
 #Considerarei os valores missing como 0 (Não se isolou)
 training_features_2[["behavioral_avoidance"]][is.na(training_features_2[["behavioral_avoidance"]])] <- 0
 
-#behavioral_face_mask
+#behavioral_face_mask -> possui 19 valores faltantes
 #Considerarei os valores missing como 0 (Não comprou máscara)
 training_features_2[["behavioral_face_mask"]][is.na(training_features_2[["behavioral_face_mask"]])] <- 0
 
-#behavioral_wash_hands
+#behavioral_wash_hands -> possui 42 valores faltantes
 #Considerarei os valores missing como 0 (Não limpa as mãos com frequência)
 training_features_2[["behavioral_wash_hands"]][is.na(training_features_2[["behavioral_wash_hands"]])] <- 0
 
-#behavioral_large_gatherings
+#behavioral_large_gatherings -> possui 87 valores faltantes
 #Considerarei os valores missing como 0 (Não evitou grandes aglomerações)
 training_features_2[["behavioral_large_gatherings"]][is.na(training_features_2[["behavioral_large_gatherings"]])] <- 0
 
-#behavioral_outside_home
+#behavioral_outside_home -> possui 82 valores faltantes
 #Considerarei os valores missing como 0 (Não reduziu o contato com pessoas de fora de casa)
 training_features_2[["behavioral_outside_home"]][is.na(training_features_2[["behavioral_outside_home"]])] <- 0
 
-#behavioral_touch_face
+#behavioral_touch_face -> possui 128 valores faltantes
 #Considerarei os valores missing como 0 (Não evitou tocar o nariz, boca, olhos)
 training_features_2[["behavioral_touch_face"]][is.na(training_features_2[["behavioral_touch_face"]])] <- 0
 
-#doctor_recc_h1n1
+#doctor_recc_h1n1 -> possui 2160 valores faltantes
 #Considerarei os valores missing como 0 (Não foi recomendado por um médico a tomar vacina contra a H1N1)
 training_features_2[["doctor_recc_h1n1"]][is.na(training_features_2[["doctor_recc_h1n1"]])] <- 0
 
-#doctor_recc_seasonal
+#doctor_recc_seasonal -> possui 2160 valores faltantes
 #Considerarei os valores missing como 0 (Não foi recomendado por um médico a tomar vacina contra a gripe)
 training_features_2[["doctor_recc_seasonal"]][is.na(training_features_2[["doctor_recc_seasonal"]])] <- 0
 
-#chronic_med_condition
+#chronic_med_condition -> possui 971 valores faltantes
 #Considerarei os valores missing como 0 (Não tem doenças crônicas)
 training_features_2[["chronic_med_condition"]][is.na(training_features_2[["chronic_med_condition"]])] <- 0
 
-#child_under_6_months
+#child_under_6_months -> possui 82o valores faltantes
 #Considerarei os valores missing como 0 (Não tem contato com crianças abaixo de 6 meses de idade)
 training_features_2[["child_under_6_months"]][is.na(training_features_2[["child_under_6_months"]])] <- 0
 
-#health_worker
+#health_worker -> possui 804 valores faltantes
 #Considerarei os valores missing como 0 (Não trabalha na área da saúde)
 training_features_2[["health_worker"]][is.na(training_features_2[["health_worker"]])] <- 0
 
-#health_insurance
+#health_insurance -> possui 12274 valores faltantes
 #Considerarei os valores missing como 0 (Não tem convênio médico)
 training_features_2[["health_insurance"]][is.na(training_features_2[["health_insurance"]])] <- 0
 
-#opinion_h1n1_vacc_effective
+#opinion_h1n1_vacc_effective -> possui 391 valores faltantes
 #Considerarei os valores missing como 3 (Don't know - Não sabe se a vacina h1n1 é efetiva)
 training_features_2[["opinion_h1n1_vacc_effective"]][is.na(training_features_2[["opinion_h1n1_vacc_effective"]])] <- 3
 
-#opinion_h1n1_risk
+#opinion_h1n1_risk -> possui 388 valores faltantes
 #Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se NÃO tomar a vacina h1n1)
 training_features_2[["opinion_h1n1_risk"]][is.na(training_features_2[["opinion_h1n1_risk"]])] <- 3
 
-#opinion_h1n1_sick_from_vacc
+#opinion_h1n1_sick_from_vacc -> possui 395 valores faltantes
 #Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se (SIM) tomar a vacina h1n1)
 training_features_2[["opinion_h1n1_sick_from_vacc"]][is.na(training_features_2[["opinion_h1n1_sick_from_vacc"]])] <- 3
 
-#opinion_seas_vacc_effective
+#opinion_seas_vacc_effective -> possui 462 valores faltantes
 #Considerarei os valores missing como 3 (Don't know - Não sabe se a vacina da gripe é efetiva)
 training_features_2[["opinion_seas_vacc_effective"]][is.na(training_features_2[["opinion_seas_vacc_effective"]])] <- 3
 
-#opinion_seas_risk
+#opinion_seas_risk -> possui 514 valores faltantes
 #Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se NÃO tomar a vacina da gripe)
 training_features_2[["opinion_seas_risk"]][is.na(training_features_2[["opinion_seas_risk"]])] <- 3
 
-#opinion_seas_sick_from_vacc
+#opinion_seas_sick_from_vacc -> possui 537 valores faltantes
 #Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se (SIM) tomar a vacina da gripe)
 training_features_2[["opinion_seas_sick_from_vacc"]][is.na(training_features_2[["opinion_seas_sick_from_vacc"]])] <- 3
 
-#household_adults
+#household_adults -> possui 249 valores faltantes
 #Considerarei os valores missing como 0 (Coniderarei que não mora com outros adultos)
 training_features_2[["household_adults"]][is.na(training_features_2[["household_adults"]])] <- 0
 
-#household_children
+#household_children -> possui 249 valores faltantes
 #Considerarei os valores missing como 0 (Coniderarei que não mora com outras crianças)
 training_features_2[["household_children"]][is.na(training_features_2[["household_children"]])] <- 0
 
@@ -154,6 +157,10 @@ summary(training_features_2) #resumo geral da base
 ############### PARTE 3 ################ 
 ########################################
 ########################################
+
+##################################
+#MODELO DE PROPENSÃO H1N1 VACCINE#
+##################################
 
 library(expss)
 
@@ -303,30 +310,259 @@ cro_rpct(training_features_2$employment_occupation_CAT, training_features_2$h1n1
 library(Information) 
 IV <- create_infotables(data = training_features_2, y = "h1n1_vaccine")
 IV$Summary
+table(IV)
 
+#GERA O MODELO APENAS COM AS VARIÁVEIS QUE POSSUEM INFORMATION VALUE >= 0.02 e <= 0.50
 modelo <- glm(h1n1_vaccine ~
-                opinion_seas_risk+health_insurance+doctor_recc_seasonal+opinion_seas_vacc_effective+
-                health_worker+h1n1_concern+h1n1_knowledge+
-                #employment_industry_CAT+
+                opinion_seas_risk+
+                health_insurance+
+                doctor_recc_seasonal+
+                opinion_seas_vacc_effective+
+                health_worker+
+                employment_industry_CAT+
                 employment_occupation_CAT+
+                h1n1_concern+
+                h1n1_knowledge+
+                opinion_h1n1_sick_from_vacc_CAT+
                 chronic_med_condition+
-                #education+
-                behavioral_face_mask+child_under_6_months+
-                hhs_geo_region_CAT+income_poverty_CAT,
+                behavioral_wash_hands+
+                behavioral_touch_face+
+                education+
+                behavioral_face_mask+
+                child_under_6_months+
+                income_poverty_CAT+
+                hhs_geo_region_CAT,
               family=binomial(link='logit'),
               data=training_features_2)
 
 summary(modelo)
 
+#RODA MODELO NOVAMENTE APENAS COM AS VARIÁVEIS COM O P VALOR < 0.10
+modelo <- glm(h1n1_vaccine ~
+                opinion_seas_risk+
+                health_insurance+
+                doctor_recc_seasonal+
+                opinion_seas_vacc_effective+
+                health_worker+
+                #employment_industry_CAT+
+                employment_occupation_CAT+
+                h1n1_concern+
+                h1n1_knowledge+
+                #opinion_h1n1_sick_from_vacc_CAT+
+                chronic_med_condition+
+                #behavioral_wash_hands+
+                #behavioral_touch_face+
+                education+
+                behavioral_face_mask+
+                child_under_6_months+
+                income_poverty_CAT+
+                hhs_geo_region_CAT,
+              family=binomial(link='logit'),
+              data=training_features_2)
+
+summary(modelo)
+
+#VERIFICA MULTICOLINEARIDADE
 library(HH)
 vif(modelo)
 
+#EXISTE MULTICOLINEARIDADE NA VARIÁVEL EDUCATION, PORTANTO, DEVE SER RETIRADA DO MODELO.
+
+modelo <- glm(h1n1_vaccine ~
+                opinion_seas_risk+
+                health_insurance+
+                doctor_recc_seasonal+
+                opinion_seas_vacc_effective+
+                health_worker+
+                #employment_industry_CAT+
+                employment_occupation_CAT+
+                h1n1_concern+
+                h1n1_knowledge+
+                #opinion_h1n1_sick_from_vacc_CAT+
+                chronic_med_condition+
+                #behavioral_wash_hands+
+                #behavioral_touch_face+
+                #education+
+                behavioral_face_mask+
+                child_under_6_months+
+                income_poverty_CAT+
+                hhs_geo_region_CAT,
+              family=binomial(link='logit'),
+              data=training_features_2)
+
+summary(modelo)
 
 #Treino
 training_features_2$probabilidade = predict(modelo,training_features_2, type = "response")
 
+#KS E AUC DA BASE DE TREINO
 library(InformationValue) 
 ks_stat(actuals=training_features_2$h1n1_vaccine, predictedScores=training_features_2$probabilidade)
 plotROC(actuals=training_features_2$h1n1_vaccine, predictedScores=training_features_2$probabilidade)
 
+#Treino
+library(cutpointr)
+ponto_treino <- cutpointr(training_features_2, probabilidade, h1n1_vaccine,
+                   method = minimize_metric, metric = abs_d_sens_spec)
+summary(ponto_treino) 
+
+#PONTO DE CORTE
+#0.2129
+
+#ACURÁCIA
+#0.0723
+
+#SENSIBILIDADE
+#0.7229
+
+#ESPECIFICIDADE
+#0.723
+
+########################################
+########################################
+############### PARTE 4 ################ 
+########################################
+########################################
+
+#TRATAMENTO DA BASE DE TESTE
+
+#Importa base de teste
+test_set_features <- read.csv(file = 'test_set_features.csv')
+dim(test_set_features)
+#View(training_features)
+
+#Avaliar analiticamente concentração de dados faltantes
+sapply(test_set_features, function(x) sum(is.na(x)))
+
+#Exploratória
+summary(test_set_features) #resumo geral da base
+
+#Tratamento de missings nas variáveis numéricas
+
+########################################
+########################################
+
+#h1n1_concern -> possui 85 valores faltantes
+#Considerarei os valores missing como 0 (Not at all concerned)
+test_set_features[["h1n1_concern"]][is.na(test_set_features[["h1n1_concern"]])] <- 0  
+
+#h1n1_knowledge -> possui 122 valores faltantes
+#Considerarei os valores missing como 0 (No knowledge)
+test_set_features[["h1n1_knowledge"]][is.na(test_set_features[["h1n1_knowledge"]])] <- 0  
+
+#behavioral_antiviral_meds -> possui 79 valores faltantes
+#Considerarei os valores missing como 0 (Não tomou antiviral)
+test_set_features[["behavioral_antiviral_meds"]][is.na(test_set_features[["behavioral_antiviral_meds"]])] <- 0  
+
+#behavioral_avoidance -> possui 213 valores faltantes
+#Considerarei os valores missing como 0 (Não se isolou)
+test_set_features[["behavioral_avoidance"]][is.na(test_set_features[["behavioral_avoidance"]])] <- 0
+
+#behavioral_face_mask -> possui 19 valores faltantes
+#Considerarei os valores missing como 0 (Não comprou máscara)
+test_set_features[["behavioral_face_mask"]][is.na(test_set_features[["behavioral_face_mask"]])] <- 0
+
+#behavioral_wash_hands -> possui 40 valores faltantes
+#Considerarei os valores missing como 0 (Não limpa as mãos com frequência)
+test_set_features[["behavioral_wash_hands"]][is.na(test_set_features[["behavioral_wash_hands"]])] <- 0
+
+#behavioral_large_gatherings -> possui 72 valores faltantes
+#Considerarei os valores missing como 0 (Não evitou grandes aglomerações)
+test_set_features[["behavioral_large_gatherings"]][is.na(test_set_features[["behavioral_large_gatherings"]])] <- 0
+
+#behavioral_outside_home -> possui 82 valores faltantes
+#Considerarei os valores missing como 0 (Não reduziu o contato com pessoas de fora de casa)
+test_set_features[["behavioral_outside_home"]][is.na(test_set_features[["behavioral_outside_home"]])] <- 0
+
+#behavioral_touch_face -> possui 128 valores faltantes
+#Considerarei os valores missing como 0 (Não evitou tocar o nariz, boca, olhos)
+test_set_features[["behavioral_touch_face"]][is.na(test_set_features[["behavioral_touch_face"]])] <- 0
+
+#doctor_recc_h1n1 -> possui 2160 valores faltantes
+#Considerarei os valores missing como 0 (Não foi recomendado por um médico a tomar vacina contra a H1N1)
+test_set_features[["doctor_recc_h1n1"]][is.na(test_set_features[["doctor_recc_h1n1"]])] <- 0
+
+#doctor_recc_seasonal -> possui 2160 valores faltantes
+#Considerarei os valores missing como 0 (Não foi recomendado por um médico a tomar vacina contra a gripe)
+test_set_features[["doctor_recc_seasonal"]][is.na(test_set_features[["doctor_recc_seasonal"]])] <- 0
+
+#chronic_med_condition -> possui 932 valores faltantes
+#Considerarei os valores missing como 0 (Não tem doenças crônicas)
+test_set_features[["chronic_med_condition"]][is.na(test_set_features[["chronic_med_condition"]])] <- 0
+
+#child_under_6_months -> possui 813 valores faltantes
+#Considerarei os valores missing como 0 (Não tem contato com crianças abaixo de 6 meses de idade)
+test_set_features[["child_under_6_months"]][is.na(test_set_features[["child_under_6_months"]])] <- 0
+
+#health_worker -> possui 789 valores faltantes
+#Considerarei os valores missing como 0 (Não trabalha na área da saúde)
+test_set_features[["health_worker"]][is.na(test_set_features[["health_worker"]])] <- 0
+
+#health_insurance -> possui 12228 valores faltantes
+#Considerarei os valores missing como 0 (Não tem convênio médico)
+test_set_features[["health_insurance"]][is.na(test_set_features[["health_insurance"]])] <- 0
+
+#opinion_h1n1_vacc_effective -> possui 398 valores faltantes
+#Considerarei os valores missing como 3 (Don't know - Não sabe se a vacina h1n1 é efetiva)
+test_set_features[["opinion_h1n1_vacc_effective"]][is.na(test_set_features[["opinion_h1n1_vacc_effective"]])] <- 3
+
+#opinion_h1n1_risk -> possui 380 valores faltantes
+#Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se NÃO tomar a vacina h1n1)
+test_set_features[["opinion_h1n1_risk"]][is.na(test_set_features[["opinion_h1n1_risk"]])] <- 3
+
+#opinion_h1n1_sick_from_vacc -> possui 375 valores faltantes
+#Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se (SIM) tomar a vacina h1n1)
+test_set_features[["opinion_h1n1_sick_from_vacc"]][is.na(test_set_features[["opinion_h1n1_sick_from_vacc"]])] <- 3
+
+#opinion_seas_vacc_effective -> possui 452 valores faltantes
+#Considerarei os valores missing como 3 (Don't know - Não sabe se a vacina da gripe é efetiva)
+test_set_features[["opinion_seas_vacc_effective"]][is.na(test_set_features[["opinion_seas_vacc_effective"]])] <- 3
+
+#opinion_seas_risk -> possui 499 valores faltantes
+#Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se NÃO tomar a vacina da gripe)
+test_set_features[["opinion_seas_risk"]][is.na(test_set_features[["opinion_seas_risk"]])] <- 3
+
+#opinion_seas_sick_from_vacc -> possui 521 valores faltantes
+#Considerarei os valores missing como 3 (Don't know - Não sabe se ficará doente se (SIM) tomar a vacina da gripe)
+test_set_features[["opinion_seas_sick_from_vacc"]][is.na(test_set_features[["opinion_seas_sick_from_vacc"]])] <- 3
+
+#household_adults -> possui 224 valores faltantes
+#Considerarei os valores missing como 0 (Coniderarei que não mora com outros adultos)
+test_set_features[["household_adults"]][is.na(test_set_features[["household_adults"]])] <- 0
+
+#household_children -> possui 225 valores faltantes
+#Considerarei os valores missing como 0 (Coniderarei que não mora com outras crianças)
+test_set_features[["household_children"]][is.na(test_set_features[["household_children"]])] <- 0
+
+
+summary(test_set_features) #resumo geral da base
+
+#A BASE DE TESTE DEVE POSSUIR AS MESMAS CATEGORIAS QUE A BASE DE TREINO
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(income_poverty_CAT = 
+                                                    case_when(income_poverty %in% c('','Below Poverty') ~ 'Below Poverty+Missing',
+                                                              income_poverty == '> $75,000' ~ '> $75,000',
+                                                              income_poverty == '<= $75,000, Above Poverty' ~ '<= $75,000, Above Poverty'))
+
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(hhs_geo_region_CAT = 
+                                                    case_when(hhs_geo_region %in% c('kbazzjca','fpwskwrf','lrircsnp') ~ '2',
+                                                              hhs_geo_region %in% c('atmpeygn','qufhixun','mlyzmhmf') ~ '3',
+                                                              hhs_geo_region %in% c('dqpwygqj','lzgpxyit') ~ '1',
+                                                              hhs_geo_region == 'oxchjgsf' ~ '4',
+                                                              hhs_geo_region == 'bhuqouqj' ~ '5'))
+#recategorizar
+
+test_set_features <- test_set_features %>% mutate(employment_occupation_CAT = 
+                                                    case_when(employment_occupation %in% c('rcertsgn','qxajmpny','uqqtjvyb','xgwztkwe','xqwwgdyp','pvmttkik','tfqavkke','ccgxvspp','hfxkjkmi') ~ '1',
+                                                              employment_occupation %in% c('mxkfnird','oijqvulv','ukymxvdu','vlluhbov','xzmlyyjv','xtkaffoo','kldqjyjy') ~ '2',
+                                                              employment_occupation %in% c('') ~ '3',
+                                                              employment_occupation %in% c('emcorrxb','hodpvpew','bxpfxfdn','dlvbwzss','haliazsg','cmhcxjea','dcjcmpih') ~ '4'))
+
+
+#TESTE
+test_set_features$probabilidade = predict(modelo,test_set_features, type = "response")
+View(test_set_features)
 
