@@ -579,5 +579,5 @@ View(test_set_features)
 probabilidade_seasonal <- test_set_features[ , c("respondent_id", "probabilidade")]
 View(probabilidade_seasonal)
 
-write.csv(probabilidade_seasonal,"C:\\Users\\HP\\Documents\\GitHub\\rstudio_preditct_h1n1_flu\\probabilidade_seasonal", row.names = FALSE)
+write.csv(probabilidade_seasonal,"C:\\Users\\HP\\Documents\\GitHub\\rstudio_preditct_h1n1_flu\\probabilidade_seasonal.csv", row.names = FALSE)
 
