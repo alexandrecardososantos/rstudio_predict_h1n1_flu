@@ -175,95 +175,126 @@ training_features_h1n1 <- training_features_2
 #########ANÁLISE BIVARIADA########
 
 library(expss)
+library(descr)
 
-cro_rpct(training_features_h1n1$h1n1_concern, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$h1n1_knowledge, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$behavioral_antiviral_meds, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$behavioral_avoidance, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$behavioral_face_mask, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$behavioral_wash_hands, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$behavioral_large_gatherings, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$behavioral_outside_home, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$behavioral_touch_face, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$doctor_recc_h1n1, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$doctor_recc_seasonal, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$chronic_med_condition, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$child_under_6_months, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$health_worker, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$health_insurance, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$h1n1_concern, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$h1n1_knowledge, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$behavioral_antiviral_meds, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$behavioral_avoidance, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$behavioral_face_mask, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$behavioral_wash_hands, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$behavioral_large_gatherings, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$behavioral_outside_home, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$behavioral_touch_face, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$doctor_recc_h1n1, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$doctor_recc_seasonal, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$chronic_med_condition, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$child_under_6_months, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$health_worker, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$health_insurance, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
 
 #recategorizar
-cro_rpct(training_features_h1n1$opinion_h1n1_vacc_effective, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$opinion_h1n1_vacc_effective, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
 training_features_h1n1 <- training_features_h1n1 %>% mutate(opinion_h1n1_vacc_effective_CAT = 
                                                   case_when(opinion_h1n1_vacc_effective %in% c(1,2) ~ '1+2',
                                                             opinion_h1n1_vacc_effective == 3 ~ '3',
                                                             opinion_h1n1_vacc_effective == 4 ~ '4',
                                                             opinion_h1n1_vacc_effective == 5 ~ '5'))
 #nova variável opinion_h1n1_vacc_effective_CAT
-cro_rpct(training_features_h1n1$opinion_h1n1_vacc_effective_CAT, training_features_h1n1$h1n1_vaccine)
-
-cro_rpct(training_features_h1n1$opinion_h1n1_risk, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$opinion_h1n1_vacc_effective_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_h1n1$opinion_h1n1_sick_from_vacc, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$opinion_h1n1_risk, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_h1n1 <- training_features_h1n1 %>% mutate(opinion_h1n1_risk_CAT = 
+                                                              case_when(opinion_h1n1_risk == 1 ~ '1',
+                                                                        opinion_h1n1_risk %in% c(2,3) ~ '2+3',
+                                                                        opinion_h1n1_risk == 4 ~ '4',
+                                                                        opinion_h1n1_risk == 5 ~ '5'))
+#nova variável opinion_h1n1_vacc_effective_CAT
+CrossTable(training_features_h1n1$opinion_h1n1_risk_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+#recategorizar
+CrossTable(training_features_h1n1$opinion_h1n1_sick_from_vacc, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_h1n1 <- training_features_h1n1 %>% mutate(opinion_h1n1_sick_from_vacc_CAT = 
-                                                        case_when(opinion_h1n1_sick_from_vacc %in% c(2,3) ~ '2+3',
-                                                                  opinion_h1n1_sick_from_vacc == 1 ~ '1',
-                                                                  opinion_h1n1_sick_from_vacc %in% c(4,5) ~ '4+5'))
+                                                        case_when(opinion_h1n1_sick_from_vacc == 1 ~ '1',
+                                                                  opinion_h1n1_sick_from_vacc %in% c(2,3) ~ '2+3',
+                                                                  opinion_h1n1_sick_from_vacc == 4 ~ '4',
+                                                                  opinion_h1n1_sick_from_vacc == 5 ~ '5'))
 #nova variável opinion_h1n1_sick_from_vacc_CAT
-cro_rpct(training_features_h1n1$opinion_h1n1_sick_from_vacc_CAT, training_features_h1n1$h1n1_vaccine)
-
-cro_rpct(training_features_h1n1$opinion_seas_vacc_effective, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$opinion_seas_risk, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$opinion_h1n1_sick_from_vacc_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_h1n1$opinion_seas_sick_from_vacc, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$opinion_seas_vacc_effective, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_h1n1 <- training_features_h1n1 %>% mutate(opinion_seas_vacc_effective_CAT = 
+                                                              case_when(opinion_seas_vacc_effective %in% c(1,2) ~ '1+2',
+                                                                        opinion_seas_vacc_effective %in% c(3,4) ~ '3+4',
+                                                                        opinion_seas_vacc_effective == 5 ~ '5'))
+#nova variável opinion_seas_vacc_effective_CAT
+CrossTable(training_features_h1n1$opinion_seas_vacc_effective_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+
+CrossTable(training_features_h1n1$opinion_seas_risk, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+#recategorizar
+CrossTable(training_features_h1n1$opinion_seas_sick_from_vacc, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_h1n1 <- training_features_h1n1 %>% mutate(opinion_seas_sick_from_vacc_CAT = 
                                                         case_when(opinion_seas_sick_from_vacc %in% c(1,4,5) ~ '1+4+5',
                                                                   opinion_seas_sick_from_vacc == 2 ~ '2',
                                                                   opinion_seas_sick_from_vacc == 3 ~ '3'))
 #nova variável opinion_h1n1_sick_from_vacc_CAT
-cro_rpct(training_features_h1n1$opinion_seas_sick_from_vacc_CAT, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$opinion_seas_sick_from_vacc_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #não irei recategorizar agora, pois acredito que a idade já esteja recategorizada de forma que faz sentido.
-cro_rpct(training_features_h1n1$age_group, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$education, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$age_group, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$education, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #não irei recategorizar agora, pois acredito que a variável não faz muito sentido neste problema.
-cro_rpct(training_features_h1n1$race, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$sex, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$race, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_h1n1$sex, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_h1n1$income_poverty, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$income_poverty, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
 training_features_h1n1 <- training_features_h1n1 %>% mutate(income_poverty_CAT = 
                                                         case_when(income_poverty %in% c('','Below Poverty') ~ 'Below Poverty+Missing',
                                                                   income_poverty == '> $75,000' ~ '> $75,000',
                                                                   income_poverty == '<= $75,000, Above Poverty' ~ '<= $75,000, Above Poverty'))
 #nova variável marital_status_CAT
-cro_rpct(training_features_h1n1$income_poverty_CAT, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$income_poverty_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 
 #recategorizar
-cro_rpct(training_features_h1n1$marital_status, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$marital_status, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_h1n1 <- training_features_h1n1 %>% mutate(marital_status_CAT = 
                                                         case_when(marital_status %in% c('','Not Married') ~ 'Not Married+Missing',
                                                                   marital_status == 'Married' ~ 'Married'))
 #nova variável marital_status_CAT
-cro_rpct(training_features_h1n1$marital_status_CAT, training_features_h1n1$h1n1_vaccine)
-
-cro_rpct(training_features_h1n1$rent_or_own, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$marital_status_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_h1n1$employment_status, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$rent_or_own, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_h1n1 <- training_features_h1n1 %>% mutate(rent_or_own_CAT = 
+                                                              case_when(rent_or_own %in% c('','Rent') ~ 'Missing+Rent',
+                                                                        rent_or_own == 'Own' ~ 'Own'))
+
+#nova variável rent_or_own_CAT
+CrossTable(training_features_h1n1$rent_or_own_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+
+#recategorizar
+CrossTable(training_features_h1n1$employment_status, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_h1n1 <- training_features_h1n1 %>% mutate(employment_status_CAT = 
                                                         case_when(employment_status %in% c('','Unempolyed') ~ 'Unempolyed+Missing',
                                                                   employment_status == 'Employed' ~ 'Employed',
                                                                   employment_status == 'Not in Labor Force' ~ 'Not in Labor Force'))
 #nova variável employment_status_CAT
-cro_rpct(training_features_h1n1$employment_status_CAT, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$employment_status_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_h1n1$hhs_geo_region, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$hhs_geo_region, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
 training_features_h1n1 <- training_features_h1n1 %>% mutate(hhs_geo_region_CAT = 
                                                         case_when(hhs_geo_region %in% c('kbazzjca','fpwskwrf','lrircsnp') ~ '2',
                                                                   hhs_geo_region %in% c('atmpeygn','qufhixun','mlyzmhmf') ~ '3',
@@ -271,21 +302,30 @@ training_features_h1n1 <- training_features_h1n1 %>% mutate(hhs_geo_region_CAT =
                                                                   hhs_geo_region == 'oxchjgsf' ~ '4',
                                                                   hhs_geo_region == 'bhuqouqj' ~ '5'))
 #nova variável hhs_geo_region_CAT
-cro_rpct(training_features_h1n1$hhs_geo_region_CAT, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$hhs_geo_region_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_h1n1$census_msa, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$census_msa, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_h1n1 <- training_features_h1n1 %>% mutate(census_msa_CAT = 
                                                         case_when(census_msa %in% c('Non-MSA','MSA, Not Principle  City') ~ 'Non-MSA+MSA, Not Principle  City',
                                                                   census_msa == 'MSA, Principle City' ~ 'MSA, Principle City'))
 #nova variável census_msa_CAT
-cro_rpct(training_features_h1n1$census_msa_CAT, training_features_h1n1$h1n1_vaccine)
-
-cro_rpct(training_features_h1n1$household_adults, training_features_h1n1$h1n1_vaccine)
-cro_rpct(training_features_h1n1$household_children, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$census_msa_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_h1n1$employment_industry, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$household_adults, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_h1n1 <- training_features_h1n1 %>% mutate(household_adults_CAT = 
+                                                              case_when(household_adults == 0 ~ '0',
+                                                                        household_adults == 1 ~ '1',
+                                                                        household_adults %in% c(2,3) ~ '2+3'))
+#nova variável household_adults_CAT
+CrossTable(training_features_h1n1$household_adults_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+
+CrossTable(training_features_h1n1$household_children, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+#recategorizar
+CrossTable(training_features_h1n1$employment_industry, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_h1n1 <- training_features_h1n1 %>% mutate(employment_industry_CAT = 
                                                         case_when(employment_industry %in% c('dotnnunm','xicduogh','atmlpfrs','mcubkhph','vjjrobsf','wlfvacwt') ~ '1',
                                                                   employment_industry %in% c('pxcmvdjn','xqicxuve','rucpziij','cfqqtusy','msuufmds') ~ '2',
@@ -294,28 +334,19 @@ training_features_h1n1 <- training_features_h1n1 %>% mutate(employment_industry_
                                                                   employment_industry %in% c('qnlwzans','arjwrbjb','wxleyezf','fcxhlnwr','haxffmxo') ~ '5'))
 
 #nova variável employment_industry_CAT
-cro_rpct(training_features_h1n1$employment_industry_CAT, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$employment_industry_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 prop.table(table(training_features_h1n1$employment_industry_CAT))
 
-library(descr)
-CrossTable(training_features_h1n1$employment_industry, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
-CrossTable(training_features_h1n1$employment_industry_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
-
 #recategorizar
-cro_rpct(training_features_h1n1$employment_occupation, training_features_h1n1$h1n1_vaccine)
-
+CrossTable(training_features_h1n1$employment_occupation, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_h1n1 <- training_features_h1n1 %>% mutate(employment_occupation_CAT = 
                                                         case_when(employment_occupation %in% c('rcertsgn','qxajmpny','uqqtjvyb','xgwztkwe','xqwwgdyp','pvmttkik','tfqavkke','ccgxvspp','hfxkjkmi') ~ '1',
                                                                   employment_occupation %in% c('mxkfnird','oijqvulv','ukymxvdu','vlluhbov','xzmlyyjv','xtkaffoo','kldqjyjy') ~ '2',
                                                                   employment_occupation %in% c('') ~ '3',
                                                                   employment_occupation %in% c('emcorrxb','hodpvpew','bxpfxfdn','dlvbwzss','haliazsg','cmhcxjea','dcjcmpih') ~ '4'))
-
-CrossTable(training_features_h1n1$employment_occupation, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
-CrossTable(training_features_h1n1$employment_occupation_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
-
 #nova variável employment_industry_CAT
-cro_rpct(training_features_h1n1$employment_occupation_CAT, training_features_h1n1$h1n1_vaccine)
+CrossTable(training_features_h1n1$employment_occupation_CAT, training_features_h1n1$h1n1_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 
 #Iv das variaveis
@@ -330,10 +361,10 @@ modelo <- glm(h1n1_vaccine ~
                 opinion_seas_risk+
                 health_insurance+
                 doctor_recc_seasonal+
-                opinion_seas_vacc_effective+
-                health_worker+
+                opinion_seas_vacc_effective_CAT+
                 employment_industry_CAT+
                 employment_occupation_CAT+
+                health_worker+
                 h1n1_concern+
                 h1n1_knowledge+
                 opinion_h1n1_sick_from_vacc_CAT+
@@ -343,8 +374,8 @@ modelo <- glm(h1n1_vaccine ~
                 education+
                 behavioral_face_mask+
                 child_under_6_months+
-                income_poverty_CAT+
-                hhs_geo_region_CAT,
+                hhs_geo_region_CAT+
+                income_poverty_CAT,
               family=binomial(link='logit'),
               data=training_features_h1n1)
 
@@ -355,10 +386,10 @@ modelo <- glm(h1n1_vaccine ~
                 opinion_seas_risk+
                 health_insurance+
                 doctor_recc_seasonal+
-                opinion_seas_vacc_effective+
-                health_worker+
+                opinion_seas_vacc_effective_CAT+
                 #employment_industry_CAT+
                 employment_occupation_CAT+
+                health_worker+
                 h1n1_concern+
                 h1n1_knowledge+
                 #opinion_h1n1_sick_from_vacc_CAT+
@@ -368,8 +399,8 @@ modelo <- glm(h1n1_vaccine ~
                 education+
                 behavioral_face_mask+
                 child_under_6_months+
-                income_poverty_CAT+
-                hhs_geo_region_CAT,
+                hhs_geo_region_CAT+
+                income_poverty_CAT,
               family=binomial(link='logit'),
               data=training_features_h1n1)
 
@@ -385,10 +416,10 @@ modelo <- glm(h1n1_vaccine ~
                 opinion_seas_risk+
                 health_insurance+
                 doctor_recc_seasonal+
-                opinion_seas_vacc_effective+
-                health_worker+
+                opinion_seas_vacc_effective_CAT+
                 #employment_industry_CAT+
                 employment_occupation_CAT+
+                health_worker+
                 h1n1_concern+
                 h1n1_knowledge+
                 #opinion_h1n1_sick_from_vacc_CAT+
@@ -398,8 +429,8 @@ modelo <- glm(h1n1_vaccine ~
                 #education+
                 behavioral_face_mask+
                 child_under_6_months+
-                income_poverty_CAT+
-                hhs_geo_region_CAT,
+                hhs_geo_region_CAT+
+                income_poverty_CAT,
               family=binomial(link='logit'),
               data=training_features_h1n1)
 
@@ -423,16 +454,16 @@ ponto_treino <- cutpointr(training_features_h1n1, probabilidade, h1n1_vaccine,
 summary(ponto_treino) 
 
 #PONTO DE CORTE - SERÁ CONSIDERADO PROPENSO A TOMAR A VACINA USUÁRIOS COM PROBABILIDADE MAIOR OU IGUAL A
-#0.2129
+#0.2123
 
 #ACURÁCIA
-#0.723
+#0.7218
 
 #SENSIBILIDADE
-#0.7229
+#0.7217
 
 #ESPECIFICIDADE
-#0.723
+#0.7218
 
 ########################################
 ########################################
@@ -556,10 +587,63 @@ summary(test_set_features) #resumo geral da base
 #A BASE DE TESTE DEVE POSSUIR AS MESMAS CATEGORIAS QUE A BASE DE TREINO
 
 #recategorizar
+test_set_features <- test_set_features %>% mutate(opinion_h1n1_vacc_effective_CAT = 
+                                                    case_when(opinion_h1n1_vacc_effective %in% c(1,2) ~ '1+2',
+                                                              opinion_h1n1_vacc_effective == 3 ~ '3',
+                                                              opinion_h1n1_vacc_effective == 4 ~ '4',
+                                                              opinion_h1n1_vacc_effective == 5 ~ '5'))
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(opinion_h1n1_risk_CAT = 
+                                                    case_when(opinion_h1n1_risk == 1 ~ '1',
+                                                              opinion_h1n1_risk %in% c(2,3) ~ '2+3',
+                                                              opinion_h1n1_risk == 4 ~ '4',
+                                                              opinion_h1n1_risk == 5 ~ '5'))
+
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(opinion_h1n1_sick_from_vacc_CAT = 
+                                                    case_when(opinion_h1n1_sick_from_vacc == 1 ~ '1',
+                                                              opinion_h1n1_sick_from_vacc %in% c(2,3) ~ '2+3',
+                                                              opinion_h1n1_sick_from_vacc == 4 ~ '4',
+                                                              opinion_h1n1_sick_from_vacc == 5 ~ '5'))
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(opinion_seas_vacc_effective_CAT = 
+                                                    case_when(opinion_seas_vacc_effective %in% c(1,2) ~ '1+2',
+                                                              opinion_seas_vacc_effective %in% c(3,4) ~ '3+4',
+                                                              opinion_seas_vacc_effective == 5 ~ '5'))
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(opinion_seas_sick_from_vacc_CAT = 
+                                                    case_when(opinion_seas_sick_from_vacc %in% c(1,4,5) ~ '1+4+5',
+                                                              opinion_seas_sick_from_vacc == 2 ~ '2',
+                                                              opinion_seas_sick_from_vacc == 3 ~ '3'))
+
+
+#recategorizar
 test_set_features <- test_set_features %>% mutate(income_poverty_CAT = 
                                                     case_when(income_poverty %in% c('','Below Poverty') ~ 'Below Poverty+Missing',
                                                               income_poverty == '> $75,000' ~ '> $75,000',
                                                               income_poverty == '<= $75,000, Above Poverty' ~ '<= $75,000, Above Poverty'))
+
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(marital_status_CAT = 
+                                                    case_when(marital_status %in% c('','Not Married') ~ 'Not Married+Missing',
+                                                              marital_status == 'Married' ~ 'Married'))
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(rent_or_own_CAT = 
+                                                    case_when(rent_or_own %in% c('','Rent') ~ 'Missing+Rent',
+                                                              rent_or_own == 'Own' ~ 'Own'))
+
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(employment_status_CAT = 
+                                                    case_when(employment_status %in% c('','Unempolyed') ~ 'Unempolyed+Missing',
+                                                              employment_status == 'Employed' ~ 'Employed',
+                                                              employment_status == 'Not in Labor Force' ~ 'Not in Labor Force'))
 
 
 #recategorizar
@@ -569,14 +653,32 @@ test_set_features <- test_set_features %>% mutate(hhs_geo_region_CAT =
                                                               hhs_geo_region %in% c('dqpwygqj','lzgpxyit') ~ '1',
                                                               hhs_geo_region == 'oxchjgsf' ~ '4',
                                                               hhs_geo_region == 'bhuqouqj' ~ '5'))
-#recategorizar
 
+#recategorizar
+test_set_features <- test_set_features %>% mutate(census_msa_CAT = 
+                                                    case_when(census_msa %in% c('Non-MSA','MSA, Not Principle  City') ~ 'Non-MSA+MSA, Not Principle  City',
+                                                              census_msa == 'MSA, Principle City' ~ 'MSA, Principle City'))
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(household_adults_CAT = 
+                                                    case_when(household_adults == 0 ~ '0',
+                                                              household_adults == 1 ~ '1',
+                                                              household_adults %in% c(2,3) ~ '2+3'))
+
+#recategorizar
+test_set_features <- test_set_features %>% mutate(employment_industry_CAT = 
+                                                    case_when(employment_industry %in% c('dotnnunm','xicduogh','atmlpfrs','mcubkhph','vjjrobsf','wlfvacwt') ~ '1',
+                                                              employment_industry %in% c('pxcmvdjn','xqicxuve','rucpziij','cfqqtusy','msuufmds') ~ '2',
+                                                              employment_industry %in% c('mfikgejo','phxvnwax','nduyfdeo','ldnlellj','saaquncn') ~ '3',
+                                                              employment_industry %in% c('') ~ '4',
+                                                              employment_industry %in% c('qnlwzans','arjwrbjb','wxleyezf','fcxhlnwr','haxffmxo') ~ '5'))
+
+#recategorizar
 test_set_features <- test_set_features %>% mutate(employment_occupation_CAT = 
                                                     case_when(employment_occupation %in% c('rcertsgn','qxajmpny','uqqtjvyb','xgwztkwe','xqwwgdyp','pvmttkik','tfqavkke','ccgxvspp','hfxkjkmi') ~ '1',
                                                               employment_occupation %in% c('mxkfnird','oijqvulv','ukymxvdu','vlluhbov','xzmlyyjv','xtkaffoo','kldqjyjy') ~ '2',
                                                               employment_occupation %in% c('') ~ '3',
                                                               employment_occupation %in% c('emcorrxb','hodpvpew','bxpfxfdn','dlvbwzss','haliazsg','cmhcxjea','dcjcmpih') ~ '4'))
-
 
 #TESTE
 test_set_features$probabilidade = predict(modelo,test_set_features, type = "response")

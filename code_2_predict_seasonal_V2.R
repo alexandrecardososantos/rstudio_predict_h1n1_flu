@@ -174,134 +174,152 @@ training_features_seasonal <- training_features_2
 
 #########ANÁLISE BIVARIADA########
 
-library(expss)
+library(descr)
 
-cro_rpct(training_features_seasonal$h1n1_concern, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$h1n1_knowledge, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$behavioral_antiviral_meds, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$behavioral_avoidance, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$behavioral_face_mask, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$behavioral_wash_hands, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$behavioral_large_gatherings, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$behavioral_outside_home, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$behavioral_touch_face, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$doctor_recc_h1n1, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$doctor_recc_seasonal, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$chronic_med_condition, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$child_under_6_months, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$health_worker, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$health_insurance, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$opinion_h1n1_vacc_effective, training_features_seasonal$seasonal_vaccine)
-
-cro_rpct(training_features_seasonal$opinion_h1n1_risk, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$h1n1_concern, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$h1n1_knowledge, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$behavioral_antiviral_meds, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$behavioral_avoidance, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$behavioral_face_mask, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$behavioral_wash_hands, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$behavioral_large_gatherings, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$behavioral_outside_home, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$behavioral_touch_face, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$doctor_recc_h1n1, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$doctor_recc_seasonal, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$chronic_med_condition, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$child_under_6_months, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$health_worker, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$health_insurance, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_seasonal$opinion_h1n1_sick_from_vacc, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$opinion_h1n1_vacc_effective, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_seasonal <- training_features_seasonal %>% mutate(opinion_h1n1_vacc_effective_CAT = 
+                                                              case_when(opinion_h1n1_vacc_effective %in% c(1,2) ~ '1+2',
+                                                                        opinion_h1n1_vacc_effective == 3 ~ '3',
+                                                                        opinion_h1n1_vacc_effective == 4 ~ '4',
+                                                                        opinion_h1n1_vacc_effective == 5 ~ '5'))
+#nova variável opinion_h1n1_vacc_effective_CAT
+CrossTable(training_features_seasonal$opinion_h1n1_vacc_effective_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+#recategorizar
+CrossTable(training_features_seasonal$opinion_h1n1_risk, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_seasonal <- training_features_seasonal %>% mutate(opinion_h1n1_risk_CAT = 
+                                                                      case_when(opinion_h1n1_risk == 1 ~ '1',
+                                                                                opinion_h1n1_risk %in% c(2,3) ~ '2+3',
+                                                                                opinion_h1n1_risk %in% c(4,5) ~ '4+5'))
+#nova variável opinion_h1n1_risk_CAT
+CrossTable(training_features_seasonal$opinion_h1n1_risk_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+#recategorizar
+CrossTable(training_features_seasonal$opinion_h1n1_sick_from_vacc, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_seasonal <- training_features_seasonal %>% mutate(opinion_h1n1_sick_from_vacc_CAT = 
-                                                        case_when(opinion_h1n1_sick_from_vacc %in% c(1,5) ~ '1+5',
-                                                                  opinion_h1n1_sick_from_vacc == 2 ~ '2',
-                                                                  opinion_h1n1_sick_from_vacc == 3 ~ '3',
-                                                                  opinion_h1n1_sick_from_vacc == 4 ~ '4'))
-#nova variável opinion_h1n1_sick_from_vacc_CAT
-cro_rpct(training_features_seasonal$opinion_h1n1_sick_from_vacc_CAT, training_features_seasonal$seasonal_vaccine)
+                                                                      case_when(opinion_h1n1_sick_from_vacc == 4 ~ '4',
+                                                                                opinion_h1n1_sick_from_vacc %in% c(1,3) ~ '1+3',
+                                                                                opinion_h1n1_sick_from_vacc %in% c(2,5) ~ '2+5'))
+#nova variável opinion_h1n1_risk_CAT
+CrossTable(training_features_seasonal$opinion_h1n1_sick_from_vacc_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_seasonal$opinion_seas_vacc_effective, training_features_seasonal$seasonal_vaccine)
-
+CrossTable(training_features_seasonal$opinion_seas_vacc_effective, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_seasonal <- training_features_seasonal %>% mutate(opinion_seas_vacc_effective_CAT = 
                                                                       case_when(opinion_seas_vacc_effective %in% c(1,2) ~ '1+2',
                                                                                 opinion_seas_vacc_effective == 3 ~ '3',
                                                                                 opinion_seas_vacc_effective == 4 ~ '4',
                                                                                 opinion_seas_vacc_effective == 5 ~ '5'))
-#nova variável opinion_h1n1_sick_from_vacc_CAT
-cro_rpct(training_features_seasonal$opinion_seas_vacc_effective_CAT, training_features_seasonal$seasonal_vaccine)
+#nova variável opinion_h1n1_risk_CAT
+CrossTable(training_features_seasonal$opinion_seas_vacc_effective_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
+#recategorizar
+CrossTable(training_features_seasonal$opinion_seas_risk, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_seasonal <- training_features_seasonal %>% mutate(opinion_seas_risk_CAT = 
+                                                                      case_when(opinion_seas_risk == 1 ~ '1',
+                                                                                opinion_seas_risk %in% c(2,3) ~ '2+3',
+                                                                                opinion_seas_risk == 4 ~ '4',
+                                                                                opinion_seas_risk == 5 ~ '5'))
+#nova variável opinion_seas_risk_CAT
+CrossTable(training_features_seasonal$opinion_seas_risk_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
-cro_rpct(training_features_seasonal$opinion_seas_risk, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$opinion_seas_sick_from_vacc, training_features_seasonal$seasonal_vaccine)
+#recategorizar
+CrossTable(training_features_seasonal$opinion_seas_sick_from_vacc, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_seasonal <- training_features_seasonal %>% mutate(opinion_seas_sick_from_vacc_CAT = 
+                                                                      case_when(opinion_seas_sick_from_vacc == 1 ~ '1',
+                                                                                opinion_seas_sick_from_vacc == 2 ~ '2',
+                                                                                opinion_seas_sick_from_vacc %in% c(3,5) ~ '3+5',
+                                                                                opinion_seas_sick_from_vacc == 4 ~ '4'))
+#nova variável opinion_seas_risk_CAT
+CrossTable(training_features_seasonal$opinion_seas_sick_from_vacc_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #não irei recategorizar agora, pois acredito que a idade já esteja recategorizada de forma que faz sentido.
-cro_rpct(training_features_seasonal$age_group, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$education, training_features_seasonal$seasonal_vaccine)
-
-#não irei recategorizar agora, pois acredito que a variável não faz muito sentido neste problema.
-cro_rpct(training_features_seasonal$race, training_features_seasonal$seasonal_vaccine)
-cro_rpct(training_features_seasonal$sex, training_features_seasonal$seasonal_vaccine)
-
-cro_rpct(training_features_seasonal$income_poverty, training_features_seasonal$seasonal_vaccine)
-
-cro_rpct(training_features_seasonal$marital_status, training_features_seasonal$seasonal_vaccine)
-
-cro_rpct(training_features_seasonal$rent_or_own, training_features_seasonal$seasonal_vaccine)
-
-cro_rpct(training_features_seasonal$employment_status, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$age_group, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$education, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_seasonal$hhs_geo_region, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$race, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_seasonal <- training_features_seasonal %>% mutate(race_CAT = 
+                                                                      case_when(race %in% c('Black','Hispanic') ~ 'Black+Hispanic',
+                                                                                race == 'Other or Multiple' ~ 'Other or Multiple',
+                                                                                race == 'White' ~ 'White'))
+#nova variável opinion_seas_risk_CAT
+CrossTable(training_features_seasonal$race_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+
+CrossTable(training_features_seasonal$sex, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+CrossTable(training_features_seasonal$income_poverty, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$marital_status, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$rent_or_own, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+CrossTable(training_features_seasonal$employment_status, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+#recategorizar
+CrossTable(training_features_seasonal$hhs_geo_region, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_seasonal <- training_features_seasonal %>% mutate(hhs_geo_region_CAT = 
-                                                        case_when(hhs_geo_region == 'lrircsnp' ~ '1',
-                                                                  hhs_geo_region == 'dqpwygqj' ~ '2',
-                                                                  hhs_geo_region %in% c('mlyzmhmf','lzgpxyit') ~ '3',
-                                                                  hhs_geo_region %in% c('oxchjgsf','qufhixun') ~ '4',
-                                                                  hhs_geo_region %in% c('fpwskwrf','kbazzjca') ~ '5',
-                                                                  hhs_geo_region %in% c('atmpeygn','bhuqouqj') ~ '6'))
+                                                                      case_when(hhs_geo_region %in% c('atmpeygn','bhuqouqj','kbazzjca') ~ '1',
+                                                                                hhs_geo_region %in% c('fpwskwrf','oxchjgsf','qufhixun') ~ '2',
+                                                                                hhs_geo_region %in% c('dqpwygqj','lrircsnp') ~ '3',
+                                                                                hhs_geo_region %in% c('lzgpxyit','mlyzmhmf') ~ '4'))
 #nova variável hhs_geo_region_CAT
-cro_rpct(training_features_seasonal$hhs_geo_region_CAT, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$hhs_geo_region_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_seasonal$census_msa, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$census_msa, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_seasonal <- training_features_seasonal %>% mutate(census_msa_CAT = 
-                                                        case_when(census_msa %in% c('Non-MSA','MSA, Principle City') ~ 'Non-MSA+MSA, Principle City',
-                                                                  census_msa == 'MSA, Not Principle  City' ~ 'MSA, Not Principle  City'))
+                                                                      case_when(census_msa %in% c('Non-MSA','MSA, Principle City') ~ 'Non-MSA+MSA, Principle City',
+                                                                                census_msa == 'MSA, Not Principle  City' ~ 'MSA, Not Principle  City'))
 #nova variável census_msa_CAT
-cro_rpct(training_features_seasonal$census_msa_CAT, training_features_seasonal$seasonal_vaccine)
-
-cro_rpct(training_features_seasonal$household_adults, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$census_msa_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_seasonal$household_children, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$household_adults, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_seasonal <- training_features_seasonal %>% mutate(household_adults_CAT = 
+                                                                      case_when(household_adults %in% c(0,1) ~ '0+1',
+                                                                                household_adults %in% c(2,3) ~ '2+3'))
+#nova variável household_adults_CAT
+CrossTable(training_features_seasonal$household_adults_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+#recategorizar
+CrossTable(training_features_seasonal$household_children, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_seasonal <- training_features_seasonal %>% mutate(household_children_CAT = 
-                                                                      case_when(household_children== 0 ~ '0',
-                                                                                household_children %in% c(1,2) ~ '1+2',
-                                                                                household_children == 3 ~ '3'))
+                                                                      case_when(household_children %in% c(0) ~ '0',
+                                                                                household_children %in% c(1,2,3) ~ '1+2+3'))
 #nova variável household_children_CAT
-cro_rpct(training_features_seasonal$household_children_CAT, training_features_seasonal$seasonal_vaccine)
+CrossTable(training_features_seasonal$household_children_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
-
-#recategorizar
-cro_rpct(training_features_seasonal$employment_industry, training_features_seasonal$seasonal_vaccine)
-training_features_seasonal <- training_features_seasonal %>% mutate(employment_industry_CAT = 
-                                                        case_when(employment_industry %in% c('rucpziij','xicduogh') ~ '1',
-                                                                  employment_industry %in% c('saaquncn','mcubkhph','nduyfdeo','vjjrobsf') ~ '2',
-                                                                  employment_industry %in% c('xqicxuve','phxvnwax','dotnnunm','pxcmvdjn','cfqqtusy','atmlpfrs','ldnlellj','wlfvacwt') ~ '3',
-                                                                  employment_industry %in% c('mfikgejo','wxleyezf','arjwrbjb','msuufmds') ~ '4',
-                                                                  employment_industry %in% c('') ~ '5',
-                                                                  employment_industry %in% c('qnlwzans','fcxhlnwr','haxffmxo') ~ '6'))
-
-#nova variável employment_industry_CAT
-cro_rpct(training_features_seasonal$employment_industry_CAT, training_features_seasonal$seasonal_vaccine)
-
-prop.table(table(training_features_seasonal$employment_industry_CAT))
-
-library(descr)
 CrossTable(training_features_seasonal$employment_industry, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+training_features_seasonal <- training_features_seasonal %>% mutate(employment_industry_CAT = 
+                                                                      case_when(employment_industry %in% c('rucpziij', 'xicduogh', 'saaquncn', 'mcubkhph', 'nduyfdeo', 'vjjrobsf', 'xqicxuve', 'phxvnwax', 'dotnnunm', 'pxcmvdjn', 'cfqqtusy','atmlpfrs', 'ldnlellj', 'wlfvacwt') ~ '1',
+                                                                                employment_industry %in% c('mfikgejo', 'wxleyezf', 'arjwrbjb', 'msuufmds', '') ~ '2',
+                                                                                employment_industry %in% c('qnlwzans', 'fcxhlnwr', 'haxffmxo') ~ '3'))
+#nova variável employment_industry_CAT
 CrossTable(training_features_seasonal$employment_industry_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 #recategorizar
-cro_rpct(training_features_seasonal$employment_occupation, training_features_seasonal$seasonal_vaccine)
-
+CrossTable(training_features_seasonal$employment_occupation, training_features_seasonal$seasonal_vaccine,prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 training_features_seasonal <- training_features_seasonal %>% mutate(employment_occupation_CAT = 
-                                                        case_when(employment_occupation %in% c('qxajmpny','uqqtjvyb','tfqavkke','pvmttkik') ~ '1',
-                                                                  employment_occupation %in% c('rcertsgn','xqwwgdyp','xgwztkwe','ukymxvdu','ccgxvspp','vlluhbov','oijqvulv','kldqjyjy') ~ '2',
-                                                                  employment_occupation %in% c('xtkaffoo','dlvbwzss','hfxkjkmi','mxkfnird') ~ '3',
-                                                                  employment_occupation %in% c('hodpvpew','bxpfxfdn','emcorrxb','xzmlyyjv') ~ '4',
-                                                                  employment_occupation %in% c('','haliazsg','cmhcxjea','dcjcmpih') ~ '5'))
-
-CrossTable(training_features_seasonal$employment_occupation, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+                                                                      case_when(employment_occupation %in% c('qxajmpny','uqqtjvyb','tfqavkke','pvmttkik','rcertsgn','xqwwgdyp','xgwztkwe','ukymxvdu','ccgxvspp','vlluhbov','oijqvulv','kldqjyjy','xtkaffoo','dlvbwzss','hfxkjkmi','mxkfnird','hodpvpew','bxpfxfdn','emcorrxb','xzmlyyjv') ~ '1',
+                                                                                employment_occupation %in% c('','haliazsg','cmhcxjea', 'dcjcmpih') ~ '2'))
+#nova variável employment_occupation_CAT
 CrossTable(training_features_seasonal$employment_occupation_CAT, training_features_seasonal$seasonal_vaccine, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
-
-#nova variável employment_industry_CAT
-cro_rpct(training_features_seasonal$employment_occupation_CAT, training_features_seasonal$seasonal_vaccine)
 
 
 #Iv das variaveis
@@ -314,8 +332,8 @@ IV$Summary
 #GERA O MODELO
 modelo <- glm(seasonal_vaccine ~
                 age_group+
-                opinion_h1n1_risk+
-                opinion_h1n1_vacc_effective+
+                opinion_h1n1_risk_CAT+
+                opinion_h1n1_vacc_effective_CAT+
                 employment_industry_CAT+
                 doctor_recc_h1n1+
                 employment_occupation_CAT+
@@ -329,12 +347,13 @@ modelo <- glm(seasonal_vaccine ~
                 household_children_CAT+
                 behavioral_wash_hands+
                 rent_or_own+
-                race+
-                opinion_seas_sick_from_vacc+
+                race_CAT+
+                opinion_seas_sick_from_vacc_CAT+
                 education+
                 sex+
                 income_poverty+
-                behavioral_avoidance,
+                behavioral_avoidance
+                ,
               family=binomial(link='logit'),
               data=training_features_seasonal)
 
@@ -343,9 +362,9 @@ summary(modelo)
 #RODA MODELO NOVAMENTE APENAS COM AS VARIÁVEIS COM O P VALOR < 0.10
 modelo <- glm(seasonal_vaccine ~
                 age_group+
-                opinion_h1n1_risk+
-                opinion_h1n1_vacc_effective+
-                #employment_industry_CAT+
+                opinion_h1n1_risk_CAT+
+                opinion_h1n1_vacc_effective_CAT+
+                employment_industry_CAT+
                 doctor_recc_h1n1+
                 employment_occupation_CAT+
                 chronic_med_condition+
@@ -358,12 +377,41 @@ modelo <- glm(seasonal_vaccine ~
                 household_children_CAT+
                 behavioral_wash_hands+
                 rent_or_own+
-                race+
-                opinion_seas_sick_from_vacc
+                race_CAT+
+                opinion_seas_sick_from_vacc_CAT
                 #education+
                 #sex+
                 #income_poverty+
                 #behavioral_avoidance
+              ,
+              family=binomial(link='logit'),
+              data=training_features_seasonal)
+
+summary(modelo)
+
+modelo <- glm(seasonal_vaccine ~
+                age_group+
+                opinion_h1n1_risk_CAT+
+                opinion_h1n1_vacc_effective_CAT+
+                employment_industry_CAT+
+                doctor_recc_h1n1+
+                #employment_occupation_CAT+
+                chronic_med_condition+
+                h1n1_concern+
+                #employment_status+
+                health_insurance+
+                health_worker+
+                h1n1_knowledge+
+                behavioral_touch_face+
+                household_children_CAT+
+                behavioral_wash_hands+
+                rent_or_own+
+                race_CAT+
+                opinion_seas_sick_from_vacc_CAT
+              #education+
+              #sex+
+              #income_poverty+
+              #behavioral_avoidance
               ,
               family=binomial(link='logit'),
               data=training_features_seasonal)
@@ -390,16 +438,16 @@ ponto_treino <- cutpointr(training_features_seasonal, probabilidade, seasonal_va
 summary(ponto_treino) 
 
 #PONTO DE CORTE - SERÁ CONSIDERADO PROPENSO A TOMAR A VACINA USUÁRIOS COM PROBABILIDADE MAIOR OU IGUAL A
-#0.4595
+#0.4632
 
 #ACURÁCIA
-#0.7076
+#0.7141
 
 #SENSIBILIDADE
-#0.7076
+#0.7141
 
 #ESPECIFICIDADE
-#0.7076
+#0.7141
 
 ########################################
 ########################################
@@ -523,11 +571,23 @@ summary(test_set_features) #resumo geral da base
 #A BASE DE TESTE DEVE POSSUIR AS MESMAS CATEGORIAS QUE A BASE DE TREINO
 
 
+test_set_features <- test_set_features %>% mutate(opinion_h1n1_vacc_effective_CAT = 
+                                                    case_when(opinion_h1n1_vacc_effective %in% c(1,2) ~ '1+2',
+                                                              opinion_h1n1_vacc_effective == 3 ~ '3',
+                                                              opinion_h1n1_vacc_effective == 4 ~ '4',
+                                                              opinion_h1n1_vacc_effective == 5 ~ '5'))
+
+
+test_set_features <- test_set_features %>% mutate(opinion_h1n1_risk_CAT = 
+                                                    case_when(opinion_h1n1_risk == 1 ~ '1',
+                                                              opinion_h1n1_risk %in% c(2,3) ~ '2+3',
+                                                              opinion_h1n1_risk %in% c(4,5) ~ '4+5'))
+
 test_set_features <- test_set_features %>% mutate(opinion_h1n1_sick_from_vacc_CAT = 
-                                                    case_when(opinion_h1n1_sick_from_vacc %in% c(1,5) ~ '1+5',
-                                                              opinion_h1n1_sick_from_vacc == 2 ~ '2',
-                                                              opinion_h1n1_sick_from_vacc == 3 ~ '3',
-                                                              opinion_h1n1_sick_from_vacc == 4 ~ '4'))
+                                                    case_when(opinion_h1n1_sick_from_vacc == 4 ~ '4',
+                                                              opinion_h1n1_sick_from_vacc %in% c(1,3) ~ '1+3',
+                                                              opinion_h1n1_sick_from_vacc %in% c(2,5) ~ '2+5'))
+
 
 test_set_features <- test_set_features %>% mutate(opinion_seas_vacc_effective_CAT = 
                                                     case_when(opinion_seas_vacc_effective %in% c(1,2) ~ '1+2',
@@ -535,13 +595,34 @@ test_set_features <- test_set_features %>% mutate(opinion_seas_vacc_effective_CA
                                                               opinion_seas_vacc_effective == 4 ~ '4',
                                                               opinion_seas_vacc_effective == 5 ~ '5'))
 
+test_set_features <- test_set_features %>% mutate(opinion_seas_risk_CAT = 
+                                                    case_when(opinion_seas_risk == 1 ~ '1',
+                                                              opinion_seas_risk %in% c(2,3) ~ '2+3',
+                                                              opinion_seas_risk == 4 ~ '4',
+                                                              opinion_seas_risk == 5 ~ '5'))
+
+
+test_set_features <- test_set_features %>% mutate(opinion_seas_sick_from_vacc_CAT = 
+                                                    case_when(opinion_seas_sick_from_vacc == 1 ~ '1',
+                                                              opinion_seas_sick_from_vacc == 2 ~ '2',
+                                                              opinion_seas_sick_from_vacc %in% c(3,5) ~ '3+5',
+                                                              opinion_seas_sick_from_vacc == 4 ~ '4'))
+
+
+
+test_set_features <- test_set_features %>% mutate(race_CAT = 
+                                                    case_when(race %in% c('Black','Hispanic') ~ 'Black+Hispanic',
+                                                              race == 'Other or Multiple' ~ 'Other or Multiple',
+                                                              race == 'White' ~ 'White'))
+
+
+
+
 test_set_features <- test_set_features %>% mutate(hhs_geo_region_CAT = 
-                                                    case_when(hhs_geo_region == 'lrircsnp' ~ '1',
-                                                              hhs_geo_region == 'dqpwygqj' ~ '2',
-                                                              hhs_geo_region %in% c('mlyzmhmf','lzgpxyit') ~ '3',
-                                                              hhs_geo_region %in% c('oxchjgsf','qufhixun') ~ '4',
-                                                              hhs_geo_region %in% c('fpwskwrf','kbazzjca') ~ '5',
-                                                              hhs_geo_region %in% c('atmpeygn','bhuqouqj') ~ '6'))
+                                                    case_when(hhs_geo_region %in% c('atmpeygn','bhuqouqj','kbazzjca') ~ '1',
+                                                              hhs_geo_region %in% c('fpwskwrf','oxchjgsf','qufhixun') ~ '2',
+                                                              hhs_geo_region %in% c('dqpwygqj','lrircsnp') ~ '3',
+                                                              hhs_geo_region %in% c('lzgpxyit','mlyzmhmf') ~ '4'))
 
 
 test_set_features <- test_set_features %>% mutate(census_msa_CAT = 
@@ -549,26 +630,26 @@ test_set_features <- test_set_features %>% mutate(census_msa_CAT =
                                                               census_msa == 'MSA, Not Principle  City' ~ 'MSA, Not Principle  City'))
 
 
+test_set_features <- test_set_features %>% mutate(household_adults_CAT = 
+                                                    case_when(household_adults %in% c(0,1) ~ '0+1',
+                                                              household_adults %in% c(2,3) ~ '2+3'))
+
+
 test_set_features <- test_set_features %>% mutate(household_children_CAT = 
-                                                    case_when(household_children== 0 ~ '0',
-                                                              household_children %in% c(1,2) ~ '1+2',
-                                                              household_children == 3 ~ '3'))
+                                                    case_when(household_children %in% c(0) ~ '0',
+                                                              household_children %in% c(1,2,3) ~ '1+2+3'))
 
 
 test_set_features <- test_set_features %>% mutate(employment_industry_CAT = 
-                                                    case_when(employment_industry %in% c('rucpziij','xicduogh') ~ '1',
-                                                              employment_industry %in% c('saaquncn','mcubkhph','nduyfdeo','vjjrobsf') ~ '2',
-                                                              employment_industry %in% c('xqicxuve','phxvnwax','dotnnunm','pxcmvdjn','cfqqtusy','atmlpfrs','ldnlellj','wlfvacwt') ~ '3',
-                                                              employment_industry %in% c('mfikgejo','wxleyezf','arjwrbjb','msuufmds') ~ '4',
-                                                              employment_industry %in% c('') ~ '5',
-                                                              employment_industry %in% c('qnlwzans','fcxhlnwr','haxffmxo') ~ '6'))
+                                                    case_when(employment_industry %in% c('rucpziij', 'xicduogh', 'saaquncn', 'mcubkhph', 'nduyfdeo', 'vjjrobsf', 'xqicxuve', 'phxvnwax', 'dotnnunm', 'pxcmvdjn', 'cfqqtusy','atmlpfrs', 'ldnlellj', 'wlfvacwt') ~ '1',
+                                                              employment_industry %in% c('mfikgejo', 'wxleyezf', 'arjwrbjb', 'msuufmds', '') ~ '2',
+                                                              employment_industry %in% c('qnlwzans', 'fcxhlnwr', 'haxffmxo') ~ '3'))
+
 
 test_set_features <- test_set_features %>% mutate(employment_occupation_CAT = 
-                                                    case_when(employment_occupation %in% c('qxajmpny','uqqtjvyb','tfqavkke','pvmttkik') ~ '1',
-                                                              employment_occupation %in% c('rcertsgn','xqwwgdyp','xgwztkwe','ukymxvdu','ccgxvspp','vlluhbov','oijqvulv','kldqjyjy') ~ '2',
-                                                              employment_occupation %in% c('xtkaffoo','dlvbwzss','hfxkjkmi','mxkfnird') ~ '3',
-                                                              employment_occupation %in% c('hodpvpew','bxpfxfdn','emcorrxb','xzmlyyjv') ~ '4',
-                                                              employment_occupation %in% c('','haliazsg','cmhcxjea','dcjcmpih') ~ '5'))
+                                                    case_when(employment_occupation %in% c('qxajmpny','uqqtjvyb','tfqavkke','pvmttkik','rcertsgn','xqwwgdyp','xgwztkwe','ukymxvdu','ccgxvspp','vlluhbov','oijqvulv','kldqjyjy','xtkaffoo','dlvbwzss','hfxkjkmi','mxkfnird','hodpvpew','bxpfxfdn','emcorrxb','xzmlyyjv') ~ '1',
+                                                              employment_occupation %in% c('','haliazsg','cmhcxjea', 'dcjcmpih') ~ '2'))
+
 
 
 

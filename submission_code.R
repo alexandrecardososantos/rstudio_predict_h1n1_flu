@@ -34,4 +34,4 @@ submission_df<-left_join(prob_h1n1,prob_seasonal,by="respondent_id")
 View(submission_df)
 
 
-write.csv(submission_df,"C:\\Users\\HP\\Desktop\\DrivenData\\predict_h1n1_flu\\submission_df.csv", row.names = FALSE)
+write.csv(submission_df,"C:\\Users\\HP\\Documents\\GitHub\\rstudio_preditct_h1n1_flu\\submission_df.csv", row.names = FALSE)
