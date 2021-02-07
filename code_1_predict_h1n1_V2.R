@@ -471,6 +471,14 @@ summary(ponto_treino)
 #ESPECIFICIDADE
 #0.7218
 
+
+training_features_h1n1 <- training_features_h1n1 %>% mutate(PREDITO = 
+                                                              case_when(probabilidade >= 0.2123 ~ '1',
+                                                                        probabilidade < 0.2123 ~ '0'))
+
+CrossTable(training_features_h1n1$h1n1_vaccine, training_features_h1n1$PREDITO, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+
+
 ########################################
 ########################################
 ############### PARTE 4 ################ 
