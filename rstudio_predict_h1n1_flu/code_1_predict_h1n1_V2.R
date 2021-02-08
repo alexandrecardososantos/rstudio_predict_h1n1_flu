@@ -8,7 +8,7 @@
 
 
 #Set do diretório das bases de dados
-setwd("C:\\Users\\HP\\Documents\\GitHub\\rstudio_preditct_h1n1_flu")
+setwd("C:\\Users\\HP\\Documents\\GitHub\\rstudio_preditct_h1n1_flu\\rstudio_predict_h1n1_flu")
 getwd()
 
 options(scipen = 999)
@@ -454,6 +454,7 @@ ks_stat(actuals=training_features_h1n1$h1n1_vaccine, predictedScores=training_fe
 plotROC(actuals=training_features_h1n1$h1n1_vaccine, predictedScores=training_features_h1n1$probabilidade)
 
 #Gera um ponto de corte para separar propensos e não propensos
+# (CONCEITO PURAMENTE ESTATÍSTICO PARA MELHOR ACURÁCIA, SENSIBILIDADE E ESPECIFICIDADE)
 library(cutpointr)
 ponto_treino <- cutpointr(training_features_h1n1, probabilidade, h1n1_vaccine,
                    method = minimize_metric, metric = abs_d_sens_spec)
@@ -472,11 +473,11 @@ summary(ponto_treino)
 #0.7218
 
 
-training_features_h1n1 <- training_features_h1n1 %>% mutate(PREDITO = 
-                                                              case_when(probabilidade >= 0.2123 ~ '1',
-                                                                        probabilidade < 0.2123 ~ '0'))
+#training_features_h1n1 <- training_features_h1n1 %>% mutate(PREDITO = 
+                                                              #case_when(probabilidade >= 0.2123 ~ '1',
+                                                                        #probabilidade < 0.2123 ~ '0'))
 
-CrossTable(training_features_h1n1$h1n1_vaccine, training_features_h1n1$PREDITO, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
+#CrossTable(training_features_h1n1$h1n1_vaccine, training_features_h1n1$PREDITO, prop.c = FALSE,prop.t = FALSE, prop.chisq = FALSE)
 
 
 ########################################
